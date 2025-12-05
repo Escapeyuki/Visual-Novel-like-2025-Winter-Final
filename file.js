@@ -12,10 +12,7 @@ let blackoutTimer = 0;
 let blackoutActive = false;
 
 let img;
-let touko;
 
-// This assumes you already have:
-/// let threshold = 700;  // or whatever you set
 
 // Listen for ALL clicks and filter down to Twine links
 window.addEventListener("click", function (event) {
@@ -86,30 +83,13 @@ window.addEventListener("click", function (event) {
       return;
   }
 
-  // Optional: debug print
   console.log("Choice picked:", label, "→ new threshold =", threshold);
 });
 
 
 function preload() {
   img = loadImage("normal.png");
-  touku = loadImage("touko.png");
 }
-
-// function triggerBlackout(duration) {
-//   if(blackout) return;
-
-//   const blackout = document.getElementById("blackout");
-
-//   blackout.style.opacity = 1;  // fade in
-//   blackoutActive = true;
-
-//   setTimeout(() => {
-//     // fade out only if not triggered again during timer
-//     blackout.style.opacity = 0;
-//     blackoutActive = false;
-//   }, duration);
-// }
 
 let blackout;
 
@@ -139,12 +119,6 @@ function draw() {
   image(img, mouseX - img.width/4, mouseY - img.height/4);
 
 
-  //drawing this to check if the sketch works but update it to what you need
-  // background(0);
-  // circle(mouseX, mouseY, 40);
-  // rect(mouseX - 10, mouseY - 10, 90, 80, 10);
-  // rect(mouseX, mouseY - 20, 255, 300, 20);
-
   //toggle the z-index (which controls the layering of the HTML page)
 if (inData < threshold) {
   // normal visibility
@@ -152,18 +126,11 @@ if (inData < threshold) {
   //triggerBlackout(1500);
   blackout.classList.add('available');
 
-  // Fade out the blackout
-  // if (blackoutActive === true) {
-  //   document.getElementById("blackout").style.opacity = 0;
-  //   blackoutActive = false;
-  // }
 
 } else {
   // canvas goes behind HTML
   cnvPosition.style.zIndex = "-1";
 
-  // Increase blackout duration depending on how far above threshold
-  // E.g., every 100 units above threshold = +300ms blackout
   let extra = Math.max(0, inData - threshold);
   blackoutTimer = 2000 + extra * 0.3;   // tweak this
 
